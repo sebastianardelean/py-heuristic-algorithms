@@ -47,6 +47,7 @@ if __name__ == '__main__':
         number_of_generations=NUMBER_OF_GENERATIONS,
         crossover_type="2-point",
         selection_type="roulette-wheel-selection",
+        stop_criteria_saturate = 5,
         on_generation_cbk=on_generation_callback
     )
 

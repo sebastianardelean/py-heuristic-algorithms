@@ -25,6 +25,7 @@ class Ga:
                  save_solutions=False,
                  allow_duplicate_gene=True,
                  stop_criteria_saturate=-1,
+                 stop_fitness_target_value = -1,
                  on_generation_cbk=None
 
                  ):
@@ -46,6 +47,7 @@ class Ga:
         self.__save_solutions = save_solutions
         self.__stop_criteria_saturate = stop_criteria_saturate
         self.__allow_duplicate_gene = allow_duplicate_gene
+        self.__stop_fitness_target_value = stop_fitness_target_value
         self.__on_generation_cbk = on_generation_cbk
         # set crossover function
         self.__crossover_function = self.__crossover_single_point
@@ -84,6 +86,8 @@ class Ga:
         self.best_solutions = []
         self.best_solution = None
         self.best_fitness=0
+        self.__old_fitness_value = 0
+        self.__saturation_counter = 0
 
     def __evaluate(self, population):
         calculated_fitness = np.empty(self.__population_size)
@@ -343,6 +347,19 @@ class Ga:
                 self.best_solutions.append(self.best_solution)
             if self.__save_solutions:
                 self.solutions.append(population)
+            if self.__stop_criteria_saturate != -1:
+                if self.__old_fitness_value == self.best_fitness:
+                    self.__saturation_counter+=1
+                else:
+                    self.__old_fitness_value = self.best_fitness
+                    self.__saturation_counter=0
+                if self.__saturation_counter == self.__stop_criteria_saturate:
+                    self.__number_of_generations = i+1
+                    break;
+            if self.__stop_fitness_target_value != -1:
+                if self.__stop_fitness_target_value == self.best_fitness:
+                    self.__number_of_generations = i + 1
+                    break;
 
             parents = self.__selection_function(current_fitness, num_parents, population)
             offsprings = self.__crossover_function(parents, num_offsprings)
