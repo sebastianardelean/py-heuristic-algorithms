@@ -26,7 +26,8 @@ class Ga:
                  allow_duplicate_gene=True,
                  stop_criteria_saturate=-1,
                  stop_fitness_target_value = -1,
-                 on_generation_cbk=None
+                 on_generation_cbk=None,
+                 on_population_init_cbk=None
 
                  ):
 
@@ -49,6 +50,7 @@ class Ga:
         self.__allow_duplicate_gene = allow_duplicate_gene
         self.__stop_fitness_target_value = stop_fitness_target_value
         self.__on_generation_cbk = on_generation_cbk
+        self.__on_population_init_cbk = on_population_init_cbk
         # set crossover function
         self.__crossover_function = self.__crossover_single_point
         if self.__crossover_type == "single-point":
@@ -330,10 +332,12 @@ class Ga:
         num_parents = int(self.__population_size / 2)
         num_offsprings = self.__population_size - num_parents
         # create population
-
-        population = np.random.randint(low=self.__gene_low,
+        if self.__on_population_init_cbk is None:
+            population = np.random.randint(low=self.__gene_low,
                                        high=self.__gene_high,
                                        size=(self.__population_size, self.__chromosome_size))
+        else:
+            population = self.__on_population_init_cbk(self.__gene_low,self.__gene_high,self.__population_size,self.__chromosome_size)
 
         for i in range(self.__number_of_generations):
             self.current_generation = i
