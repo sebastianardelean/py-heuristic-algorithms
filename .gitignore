@@ -1,0 +1,10 @@
+
+.idea/inspectionProfiles/profiles_settings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/py-heuristic-algorithms.iml
+.idea/vcs.xml
+__pycache__/pyhealgo.cpython-39.pyc
+src/__pycache__/sa.cpython-39.pyc
+src/__pycache__/ga.cpython-39.pyc
+.idea/workspace.xml

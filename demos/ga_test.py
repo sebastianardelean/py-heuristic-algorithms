@@ -1,5 +1,5 @@
 import numpy as np
-from ga import Ga
+from pyhealgo import Ga
 
 CHROMOSOME_SIZE = 32
 POPULATION_SIZE = 100
@@ -55,5 +55,5 @@ if __name__ == '__main__':
     weight, value = validate(solution)
     print("SOLUTION: {0}, WEIGHT:{1}, VALUE:{2}, FITNESS:{3}".format(solution, weight, value, fitness))
 
-    res.plot_fitness()
+    res.visualize()
     pass

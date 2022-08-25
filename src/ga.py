@@ -385,7 +385,7 @@ class Ga:
 
         return self.best_solution, self.best_fitness
 
-    def plot_fitness(self):
+    def visualize(self):
         fitness_history_mean = [np.mean(fitness_value) for fitness_value in self.__fitness_history]
         fitness_history_max = [np.max(fitness_value) for fitness_value in self.__fitness_history]
         plt.plot(list(range(self.__number_of_generations)), fitness_history_mean, label='Mean Fitness')
