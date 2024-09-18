@@ -21,8 +21,9 @@ if __name__ == '__main__':
                  #generate_initial_state_hndl = generate_initial_state,
                  problem_domain=interval,
                  on_cost_hdl=cost_function,
-                 max_steps=5000
+                 max_steps=200
                  )
     state, cost = sa_instance.run()
     print("State: {0} Cost {1}".format(state,cost))
     sa_instance.visualize()
+    sa_instance.save_to_file('non_quantum_random_sa')
